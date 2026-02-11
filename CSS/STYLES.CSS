@@ -1,0 +1,18 @@
+
+body {
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+}
+
+h1 {
+  text-shadow: 2px 2px 5px darkblue;
+}
+/* style.css */
+
+body {
+  background: lightblue;
+}
+
+.form-box {
+  max-width: 400px;
+  margin: 80px auto;
+}
