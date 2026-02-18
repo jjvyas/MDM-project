@@ -6,7 +6,6 @@ body {
 h1 {
   text-shadow: 2px 2px 5px darkblue;
 }
-/* style.css */
 
 body {
   background: lightblue;
@@ -16,3 +15,12 @@ body {
   max-width: 400px;
   margin: 80px auto;
 }
+.card-img-top {
+  height: 200px;
+  width: auto;          /* prevents horizontal stretch */
+  max-width: 80%;       /* reduce width */
+  object-fit: contain;  /* keeps full image visible */
+  display: block;
+  margin: 0 auto;       /* centers image */
+}
+
