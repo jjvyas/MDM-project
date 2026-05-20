@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Book Seats - BOOKMYGAME</title>
+
+  <!-- Blocking Auth Guard to prevent flash of content -->
+  <script>
+    if (sessionStorage.getItem("isLoggedIn") !== "true") {
+      window.location.replace("register.html?message=auth_required&redirect=booking.html");
+    }
+  </script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="CSS/STYLES.CSS">
+  <style>
+    body {
+      color: #fff;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.3);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 123, 0, 0.4);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 123, 0, 0.7);
+    }
+  </style>
+</head>
+<body>
+  <!-- Full Screen Background Video -->
+  <video autoplay muted loop playsinline class="bg-video">
+    <source src="bg-video.mp4" type="video/mp4">
+  </video>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-cavalier">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 50" width="40" height="32" style="vertical-align: middle; margin-right: 8px;">
+            <rect x="5" y="5" width="13" height="40" fill="#2d6063" />
+            <line x1="5" y1="10" x2="18" y2="23" stroke="#16393b" stroke-width="1.5" />
+            <line x1="5" y1="15" x2="18" y2="28" stroke="#16393b" stroke-width="1.5" />
+            <line x1="5" y1="20" x2="18" y2="33" stroke="#16393b" stroke-width="1.5" />
+            <line x1="5" y1="35" x2="10" y2="40" stroke="#16393b" stroke-width="1.5" />
+            <line x1="13" y1="5" x2="18" y2="10" stroke="#16393b" stroke-width="1.5" />
+            <text x="21" y="41" font-family="Georgia, 'Times New Roman', serif" font-weight="900" font-size="44" fill="#e8d0b5" stroke="#1c1618" stroke-width="1.5" letter-spacing="-1">B</text>
+            <text x="17" y="39" font-family="Georgia, 'Times New Roman', serif" font-weight="900" font-size="44" fill="#ffffff" stroke="#1c1618" stroke-width="1.5" letter-spacing="-1">B</text>
+        </svg>
+        BOOKMYGAME
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item px-lg-2 mb-2 mb-lg-0">
+            <a class="btn-nav-register" href="register.html">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="games.html">Games</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="booking.html">Booking</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" id="signOutBtn" style="color: #ffc107 !important;">Sign Out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Wrapper -->
+  <div class="container my-5">
+    <div class="booking-hero">
+      <h1 class="booking-title">PS5 Cafe Seat Booking</h1>
+      <p class="text-center text-white-50 mt-2 max-width-600 mx-auto">
+        Reserve your dedicated PlayStation 5 battle station across our prime gaming lounges. 
+        Select a seat, click Book Now, and pick your available time slot!
+      </p>
+    </div>
+
+    <!-- Interactive Legend -->
+    <div class="legend-container glass-card p-3 max-width-500 mx-auto mb-4">
+      <div class="legend-item">
+        <div class="legend-color available"></div>
+        <span>Available PS5 Seat</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color selected"></div>
+        <span>Your Selection</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color occupied"></div>
+        <span>Already Occupied</span>
+      </div>
+    </div>
+
+    <!-- Cafe Listing Grid -->
+    <div class="cafes-container">
+      
+      <!-- Cafe 1 Box -->
+      <section class="cafe-box glass-card" id="cafe1">
+        <div class="cafe-header-grid">
+          <div class="cafe-info">
+            <h3>Nexus Gaming Lounge</h3>
+            <div class="cafe-meta">
+              <span class="cafe-rating">★ 4.9 Rating</span>
+              <span>•</span>
+              <span>Downtown Plaza, 4th Floor</span>
+              <span>•</span>
+              <span class="text-warning fw-bold">120Hz Displays</span>
+            </div>
+          </div>
+          <div>
+            <button class="btn btn-register py-2 px-4 btn-book-trigger" onclick="triggerBooking('cafe1', 'Nexus Gaming Lounge')" disabled>Book Now</button>
+          </div>
+        </div>
+        
+        <h4 class="seats-area-title">Select PS5 Seat (11 Seats Available)</h4>
+        
+        <!-- 11 Seats Grid -->
+        <div class="seats-grid" data-cafe="cafe1">
+          <div class="seat available" data-seat="1">S1<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="2">S2<span class="seat-label">PS5</span></div>
+          <div class="seat occupied" data-seat="3">S3<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="4">S4<span class="seat-label">PS5</span></div>
+          <div class="seat occupied" data-seat="5">S5<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="6">S6<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="7">S7<span class="seat-label">PS5</span></div>
+          <div class="seat occupied" data-seat="8">S8<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="9">S9<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="10">S10<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="11">S11<span class="seat-label">PS5</span></div>
+        </div>
+      </section>
+
+      <!-- Cafe 2 Box -->
+      <section class="cafe-box glass-card" id="cafe2">
+        <div class="cafe-header-grid">
+          <div class="cafe-info">
+            <h3>Vortex Esports Arena</h3>
+            <div class="cafe-meta">
+              <span class="cafe-rating">★ 4.8 Rating</span>
+              <span>•</span>
+              <span>Tech Park Avenue, Gate 2</span>
+              <span>•</span>
+              <span class="text-warning fw-bold">Pro Headsets</span>
+            </div>
+          </div>
+          <div>
+            <button class="btn btn-register py-2 px-4 btn-book-trigger" onclick="triggerBooking('cafe2', 'Vortex Esports Arena')" disabled>Book Now</button>
+          </div>
+        </div>
+
+        <h4 class="seats-area-title">Select PS5 Seat (11 Seats Available)</h4>
+
+        <!-- 11 Seats Grid -->
+        <div class="seats-grid" data-cafe="cafe2">
+          <div class="seat occupied" data-seat="1">S1<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="2">S2<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="3">S3<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="4">S4<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="5">S5<span class="seat-label">PS5</span></div>
+          <div class="seat occupied" data-seat="6">S6<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="7">S7<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="8">S8<span class="seat-label">PS5</span></div>
+          <div class="seat occupied" data-seat="9">S9<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="10">S10<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="11">S11<span class="seat-label">PS5</span></div>
+        </div>
+      </section>
+
+      <!-- Cafe 3 Box -->
+      <section class="cafe-box glass-card" id="cafe3">
+        <div class="cafe-header-grid">
+          <div class="cafe-info">
+            <h3>Overdrive Play Zone</h3>
+            <div class="cafe-meta">
+              <span class="cafe-rating">★ 4.7 Rating</span>
+              <span>•</span>
+              <span>Marina Boardwalk, Shop 10</span>
+              <span>•</span>
+              <span class="text-warning fw-bold">Racing Seats</span>
+            </div>
+          </div>
+          <div>
+            <button class="btn btn-register py-2 px-4 btn-book-trigger" onclick="triggerBooking('cafe3', 'Overdrive Play Zone')" disabled>Book Now</button>
+          </div>
+        </div>
+
+        <h4 class="seats-area-title">Select PS5 Seat (11 Seats Available)</h4>
+
+        <!-- 11 Seats Grid -->
+        <div class="seats-grid" data-cafe="cafe3">
+          <div class="seat available" data-seat="1">S1<span class="seat-label">PS5</span></div>
+          <div class="seat occupied" data-seat="2">S2<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="3">S3<span class="seat-label">PS5</span></div>
+          <div class="seat occupied" data-seat="4">S4<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="5">S5<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="6">S6<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="7">S7<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="8">S8<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="9">S9<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="10">S10<span class="seat-label">PS5</span></div>
+          <div class="seat occupied" data-seat="11">S11<span class="seat-label">PS5</span></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Interactive Time Slots Booking Modal -->
+  <div class="booking-modal-overlay" id="bookingModalOverlay">
+    <div class="booking-modal glass-card p-4 p-md-5">
+      <div class="modal-header-custom">
+        <h4 class="modal-title-custom" id="modalCafeTitle">Select Time Slot</h4>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+
+      <div class="modal-body-custom">
+        <p class="text-white-50 mb-3">
+          Selected Seat: <strong class="text-white" id="modalSeatLabel">S0</strong>
+        </p>
+
+        <p class="small text-white-50 mb-2">TIME SLOTS AVAILABILITY:</p>
+
+        <!-- Time Slots list -->
+        <div class="slots-container" id="modalSlotsContainer">
+          <!-- Populated dynamically via JS -->
+        </div>
+
+        <button class="btn btn-register w-100 mt-2" id="confirmBookingBtn" onclick="confirmFinalBooking()" disabled>Confirm Booking</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic Success/Error Toast notification -->
+  <div id="toastNotification" class="premium-toast glass-card">
+    <span id="toastMessage"></span>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Interactive Seat Selection and Time Slot Booking JS -->
+  <script>
+    let activeSelections = {
+      cafe1: null,
+      cafe2: null,
+      cafe3: null
+    };
+
+    let activeCafeId = null;
+    let activeCafeName = "";
+    let activeSelectedTimeSlot = null;
+
+    // Custom deterministic time-slot availability generator for each seat
+    const slotAvailabilities = {};
+
+    function generateSlotAvailabilities() {
+      const cafes = ['cafe1', 'cafe2', 'cafe3'];
+      const slots = [
+        "10:00 AM - 12:00 PM",
+        "12:00 PM - 02:00 PM",
+        "02:00 PM - 04:00 PM",
+        "04:00 PM - 06:00 PM",
+        "06:00 PM - 08:00 PM",
+        "08:00 PM - 10:00 PM"
+      ];
+
+      cafes.forEach(cafe => {
+        slotAvailabilities[cafe] = {};
+        for(let seat=1; seat<=11; seat++) {
+          slotAvailabilities[cafe][seat] = slots.map((slotText, idx) => {
+            // Determine availability pseudo-randomly based on seat & idx
+            const isOccupied = ((seat * 3) + idx * 7) % 3 === 0;
+            return {
+              time: slotText,
+              available: !isOccupied
+            };
+          });
+        }
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      generateSlotAvailabilities();
+
+      // Sign Out handler
+      document.getElementById("signOutBtn").addEventListener("click", function (e) {
+        e.preventDefault();
+        sessionStorage.removeItem("isLoggedIn");
+        window.location.href = "index.html";
+      });
+
+      // Interactive seat click handler
+      const seatGrids = document.querySelectorAll(".seats-grid");
+      seatGrids.forEach(grid => {
+        const cafeId = grid.getAttribute("data-cafe");
+        const seats = grid.querySelectorAll(".seat");
+
+        seats.forEach(seat => {
+          seat.addEventListener("click", function () {
+            if (seat.classList.contains("occupied")) return; // Do nothing if occupied
+
+            const seatNum = seat.getAttribute("data-seat");
+
+            // If clicking the currently selected seat, deselect it
+            if (activeSelections[cafeId] === seatNum) {
+              seat.classList.remove("selected");
+              seat.classList.add("available");
+              activeSelections[cafeId] = null;
+            } else {
+              // Deselect any previously selected seat in this cafe
+              const prevSelected = grid.querySelector(".seat.selected");
+              if (prevSelected) {
+                prevSelected.classList.remove("selected");
+                prevSelected.classList.add("available");
+              }
+
+              // Select this seat
+              seat.classList.remove("available");
+              seat.classList.add("selected");
+              activeSelections[cafeId] = seatNum;
+            }
+
+            // Enable or disable the Book Now button based on selection state
+            const bookBtn = document.querySelector(`#${cafeId} .btn-book-trigger`);
+            if (activeSelections[cafeId]) {
+              bookBtn.removeAttribute("disabled");
+            } else {
+              bookBtn.setAttribute("disabled", "true");
+            }
+          });
+        });
+      });
+    });
+
+    // Book Now button click handler
+    function triggerBooking(cafeId, cafeName) {
+      const selectedSeat = activeSelections[cafeId];
+      if (!selectedSeat) return;
+
+      activeCafeId = cafeId;
+      activeCafeName = cafeName;
+      activeSelectedTimeSlot = null;
+      document.getElementById("confirmBookingBtn").setAttribute("disabled", "true");
+
+      // Update Modal Titles
+      document.getElementById("modalCafeTitle").textContent = cafeName;
+      document.getElementById("modalSeatLabel").textContent = `PS5 Seat S${selectedSeat}`;
+
+      // Render Time Slots
+      const slotsContainer = document.getElementById("modalSlotsContainer");
+      slotsContainer.innerHTML = "";
+
+      const slots = slotAvailabilities[cafeId][selectedSeat];
+
+      slots.forEach((slot, index) => {
+        const slotEl = document.createElement("div");
+        if (slot.available) {
+          slotEl.className = "time-slot available";
+          slotEl.textContent = slot.time;
+          slotEl.addEventListener("click", () => {
+            // Deselect previous slot
+            const prevSelected = slotsContainer.querySelector(".time-slot.selected");
+            if (prevSelected) prevSelected.classList.remove("selected");
+
+            // Select this slot
+            slotEl.classList.add("selected");
+            activeSelectedTimeSlot = index;
+            document.getElementById("confirmBookingBtn").removeAttribute("disabled");
+          });
+        } else {
+          slotEl.className = "time-slot occupied";
+          slotEl.innerHTML = `${slot.time}<br><small class="text-danger fw-bold">OCCUPIED</small>`;
+        }
+        slotsContainer.appendChild(slotEl);
+      });
+
+      // Show Modal Overlay
+      const modalOverlay = document.getElementById("bookingModalOverlay");
+      modalOverlay.classList.add("active");
+    }
+
+    function closeModal() {
+      const modalOverlay = document.getElementById("bookingModalOverlay");
+      modalOverlay.classList.remove("active");
+    }
+
+    // Confirm booking logic
+    function confirmFinalBooking() {
+      if (activeSelectedTimeSlot === null || !activeCafeId) return;
+
+      const selectedSeatNum = activeSelections[activeCafeId];
+      const slotText = slotAvailabilities[activeCafeId][selectedSeatNum][activeSelectedTimeSlot].time;
+
+      // 1. Mark this slot as occupied deterministically so it cannot be booked again in this session
+      slotAvailabilities[activeCafeId][selectedSeatNum][activeSelectedTimeSlot].available = false;
+
+      // 2. Mark all slots as booked? Let's check if the seat becomes occupied completely for this cafe!
+      // In the real world, the seat is occupied for that slot. To represent the seat state change in the page:
+      // Since the seat has exactly 11 seats, we can mark this seat as occupied in the layout
+      // if all of its slots are now booked, or just immediately lock the seat in the UI to make it feel responsive!
+      // Let's immediately lock the seat in the UI! That is very satisfying!
+      const seatGrid = document.querySelector(`.seats-grid[data-cafe="${activeCafeId}"]`);
+      const seatElement = seatGrid.querySelector(`.seat[data-seat="${selectedSeatNum}"]`);
+      
+      seatElement.classList.remove("selected");
+      seatElement.classList.add("occupied");
+      
+      // Reset button and selection state
+      const bookBtn = document.querySelector(`#${activeCafeId} .btn-book-trigger`);
+      bookBtn.setAttribute("disabled", "true");
+      activeSelections[activeCafeId] = null;
+
+      // Close modal
+      closeModal();
+
+      // Show dynamic success toast!
+      const toast = document.getElementById("toastNotification");
+      const toastMsg = document.getElementById("toastMessage");
+      
+      toast.className = "premium-toast success active glass-card";
+      toastMsg.innerHTML = `🎮 <strong>Booking Confirmed!</strong> Seat <strong>S${selectedSeatNum}</strong> at <em>${activeCafeName}</em> is reserved for <strong>${slotText}</strong>. Get ready!`;
+
+      // Hide toast after 4 seconds
+      setTimeout(() => {
+        toast.classList.remove("active");
+      }, 4500);
+    }
+  </script>
+</body>
+</html>

@@ -3,31 +3,274 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Registration - BOOKMYGAME</title>
+  <title>Games - BOOKMYGAME</title>
+
+  <!-- Blocking Auth Guard to prevent flash of content -->
+  <script>
+    if (sessionStorage.getItem("isLoggedIn") !== "true") {
+      window.location.replace("register.html?message=auth_required&redirect=games.html");
+    }
+  </script>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="CSS/STYLES.CSS">
+  <style>
+    /* Prevent page scroll jumps and style scrollbar */
+    body {
+      color: #fff;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.3);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 123, 0, 0.4);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 123, 0, 0.7);
+    }
+  </style>
 </head>
 <body>
-   <video autoplay muted loop playsinline class="bg-video">
-  <source src="bg-video.mp4" type="video/mp4">
-</video>
-<body>
-    <div class = "app">
-<aside class = "sidebar">
-    <h2 class = "Logo">BOOKMYGAME</h2>  
-<nav>
-    <a class = "active" href="index.html">Home</a>
-    <a href="register.html">Booking</a>
-</nav>
-<div class = "sidebar-games">
-    <p class = "sidebar-title">Minecraft</p>
-    <p class = "sidebar-title">GTA V</p>
-    <p class = "sidebar-title">Valorant</p>
-    <p class = "sidebar-title">CS:GO</p>
-    <p class = "sidebar-title">FIFA 26</p>
-</div>
-</aside>
+  <!-- Full Screen Background Video -->
+  <video autoplay muted loop playsinline class="bg-video">
+    <source src="bg-video.mp4" type="video/mp4">
+  </video>
 
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-cavalier">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 50" width="40" height="32" style="vertical-align: middle; margin-right: 8px;">
+            <rect x="5" y="5" width="13" height="40" fill="#2d6063" />
+            <line x1="5" y1="10" x2="18" y2="23" stroke="#16393b" stroke-width="1.5" />
+            <line x1="5" y1="15" x2="18" y2="28" stroke="#16393b" stroke-width="1.5" />
+            <line x1="5" y1="20" x2="18" y2="33" stroke="#16393b" stroke-width="1.5" />
+            <line x1="5" y1="35" x2="10" y2="40" stroke="#16393b" stroke-width="1.5" />
+            <line x1="13" y1="5" x2="18" y2="10" stroke="#16393b" stroke-width="1.5" />
+            <text x="21" y="41" font-family="Georgia, 'Times New Roman', serif" font-weight="900" font-size="44" fill="#e8d0b5" stroke="#1c1618" stroke-width="1.5" letter-spacing="-1">B</text>
+            <text x="17" y="39" font-family="Georgia, 'Times New Roman', serif" font-weight="900" font-size="44" fill="#ffffff" stroke="#1c1618" stroke-width="1.5" letter-spacing="-1">B</text>
+        </svg>
+        BOOKMYGAME
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item px-lg-2 mb-2 mb-lg-0">
+            <a class="btn-nav-register" href="register.html">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="games.html">Games</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="booking.html">Booking</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" id="signOutBtn" style="color: #ffc107 !important;">Sign Out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
+  <!-- Main Container -->
+  <div class="container my-5">
+    <div class="games-layout">
+      
+      <!-- Left Menu Bar (Sidebar) -->
+      <aside class="games-sidebar glass-card">
+        <h3 class="sidebar-heading">Categories</h3>
+        <div class="category-list">
+          <div class="category-item active" data-category="all">
+            <span>All Games</span>
+            <span class="category-badge">3</span>
+          </div>
+          <div class="category-item" data-category="action">
+            <span>Action</span>
+            <span class="category-badge">3</span>
+          </div>
+          <div class="category-item" data-category="adventure">
+            <span>Adventure</span>
+            <span class="category-badge">1</span>
+          </div>
+          <div class="category-item" data-category="horror">
+            <span>Horror</span>
+            <span class="category-badge">1</span>
+          </div>
+          <div class="category-item" data-category="rpg">
+            <span>RPG</span>
+            <span class="category-badge">1</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Section -->
+      <main class="games-main">
+        <!-- Search bar -->
+        <div class="search-wrapper">
+          <input type="text" id="gameSearch" class="search-input" placeholder="Search game titles or descriptions...">
+          <!-- Magnifying glass icon SVG -->
+          <svg class="search-icon-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-search" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+
+        <!-- No Games Found Prompt -->
+        <div id="noGamesFound" class="glass-card p-5 text-center d-none">
+          <h4 style="color: rgba(255, 255, 255, 0.5);">No Games Found</h4>
+          <p class="mb-0 text-white-50">Try broadening your search or choosing a different category.</p>
+        </div>
+
+        <!-- Interactive UI Games Grid -->
+        <div class="games-grid" id="gamesGrid">
+          
+          <!-- God of War Card -->
+          <article class="game-card glass-card" data-title="god of war ragnarok" data-desc="embark on an epic journey as kratos and atreus struggle in the norse realms" data-categories="action,adventure">
+            <div class="game-img-container">
+              <img src="https://image.api.playstation.com/vulcan/ap/rnd/202206/0300/4vlDCP2JOTwL54S51p831y8H.png" alt="God of War Ragnarök">
+              <span class="game-category-tag">Action</span>
+            </div>
+            <div class="game-card-body">
+              <h4 class="game-title">God of War Ragnarök</h4>
+              <p class="game-desc">Embark on a brutal, heartfelt journey through Norse realms as Kratos and Atreus struggle with holding on and letting go.</p>
+              <div class="game-footer">
+                <span class="game-price">$49.99</span>
+                <button class="btn-buy" onclick="buyGame('God of War Ragnarök')">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Assassin's Creed Card -->
+          <article class="game-card glass-card" data-title="assassins creed valhalla" data-desc="become eivor a legendary viking warrior explore england dark ages" data-categories="action,rpg">
+            <div class="game-img-container">
+              <img src="https://image.api.playstation.com/vulcan/ap/rnd/202008/1420/Hq62D5s2E6G4Z27x34L4b8n8.png" alt="Assassin's Creed Valhalla">
+              <span class="game-category-tag">RPG</span>
+            </div>
+            <div class="game-card-body">
+              <h4 class="game-title">Assassin's Creed Valhalla</h4>
+              <p class="game-desc">Become Eivor, a legendary Viking warrior, and explore an open-world setting across England's dark ages with brutal combat mechanics.</p>
+              <div class="game-footer">
+                <span class="game-price">$59.99</span>
+                <button class="btn-buy" onclick="buyGame('Assassin\'s Creed Valhalla')">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Resident Evil Card -->
+          <article class="game-card glass-card" data-title="resident evil 4" data-desc="survive terrifying bio organic weapons village survival horror masterpiece" data-categories="action,horror">
+            <div class="game-img-container">
+              <img src="https://image.api.playstation.com/vulcan/ap/rnd/202210/0712/5c4NnQ72zR7K18aV3X9R7SjC.png" alt="Resident Evil 4 Remake">
+              <span class="game-category-tag">Horror</span>
+            </div>
+            <div class="game-card-body">
+              <h4 class="game-title">Resident Evil 4</h4>
+              <p class="game-desc">Face the terror of a mysterious cult in a European village. Experience a redefined, action-packed survival horror masterpiece.</p>
+              <div class="game-footer">
+                <span class="game-price">$39.99</span>
+                <button class="btn-buy" onclick="buyGame('Resident Evil 4')">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Dynamic Success/Error Toast notification -->
+  <div id="toastNotification" class="premium-toast glass-card">
+    <span id="toastMessage"></span>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Interactive JavaScript Logic -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const searchInput = document.getElementById("gameSearch");
+      const categoryItems = document.querySelectorAll(".category-item");
+      const gameCards = document.querySelectorAll(".game-card");
+      const noGamesFound = document.getElementById("noGamesFound");
+      const signOutBtn = document.getElementById("signOutBtn");
+
+      let currentCategory = "all";
+      let searchQuery = "";
+
+      // Filtering handler
+      function filterGames() {
+        let visibleCount = 0;
+
+        gameCards.forEach(card => {
+          const title = card.getAttribute("data-title");
+          const desc = card.getAttribute("data-desc");
+          const categories = card.getAttribute("data-categories").split(",");
+
+          const matchesCategory = currentCategory === "all" || categories.includes(currentCategory);
+          const matchesSearch = title.includes(searchQuery) || desc.includes(searchQuery);
+
+          if (matchesCategory && matchesSearch) {
+            card.style.display = "flex";
+            visibleCount++;
+          } else {
+            card.style.display = "none";
+          }
+        });
+
+        if (visibleCount === 0) {
+          noGamesFound.classList.remove("d-none");
+        } else {
+          noGamesFound.classList.add("d-none");
+        }
+      }
+
+      // Search typing listener
+      searchInput.addEventListener("input", function (e) {
+        searchQuery = e.target.value.toLowerCase().trim();
+        filterGames();
+      });
+
+      // Category click listener
+      categoryItems.forEach(item => {
+        item.addEventListener("click", function () {
+          categoryItems.forEach(c => c.classList.remove("active"));
+          item.classList.add("active");
+          currentCategory = item.getAttribute("data-category");
+          filterGames();
+        });
+      });
+
+      // Sign Out handler
+      signOutBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        sessionStorage.removeItem("isLoggedIn");
+        window.location.href = "index.html";
+      });
+    });
+
+    // Buy Game handler
+    function buyGame(gameName) {
+      const toast = document.getElementById("toastNotification");
+      const toastMsg = document.getElementById("toastMessage");
+      
+      toast.className = "premium-toast success active glass-card";
+      toastMsg.innerHTML = `🛒 <strong>Purchase Successful!</strong> Your download key for <em>${gameName}</em> has been sent to your registered email!`;
+
+      // Hide toast after 4 seconds
+      setTimeout(() => {
+        toast.classList.remove("active");
+      }, 4000);
+    }
+  </script>
+</body>
+</html>

@@ -3,52 +3,150 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Registration - BOOKMYGAME</title>
+  <title>Register - BOOKMYGAME</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom CSS -->
   <link rel="stylesheet" href="CSS/STYLES.CSS">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .form-box {
+      margin-top: 0 !important;
+    }
+    .form-control {
+      background: rgba(255, 255, 255, 0.05) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      color: #fff !important;
+      border-radius: 8px !important;
+      padding: 11px 15px !important;
+    }
+    .form-control:focus {
+      background: rgba(255, 255, 255, 0.1) !important;
+      border-color: #ff7b00 !important;
+      box-shadow: 0 0 10px rgba(255, 123, 0, 0.25) !important;
+      outline: none !important;
+    }
+    .form-label {
+      color: rgba(255, 255, 255, 0.8) !important;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    a {
+      color: #ff7b00 !important;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-   <video autoplay muted loop playsinline class="bg-video">
-  <source src="bg-video.mp4" type="video/mp4">
-</video>
+  <!-- Full Screen Background Video -->
+  <video autoplay muted loop playsinline class="bg-video">
+    <source src="bg-video.mp4" type="video/mp4">
+  </video>
 
-<div class="form-box">
-  <div class="card shadow">
-    <div class="card-body">
-      <h3 class="text-center mb-4">Register</h3>
-
-      <form action="games.html" method="post">
-        <div class="mb-3">
-          <label class="form-label">Full Name</label>
-          <input type="text" class="form-control" placeholder="Enter your full name" required>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">E-mail</label>
-          <input type="email" class="form-control" placeholder="Enter your email" required>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Password</label>
-          <input type="password" class="form-control" placeholder="Enter your password" required>
-        </div>
-
-        <button type="submit" class="btn btn-primary w-100">Register</button>
-      </form>
-
-      <p class="text-center mt-3">
-        Already have an account? <a href="signin.html">Sign in</a>
-      </p>
-
-    </div>
+  <!-- Elegant Home Button at top-left -->
+  <div style="position: absolute; top: 25px; left: 25px;">
+    <a href="index.html" class="btn btn-outline-warning rounded-pill px-4" style="border-color: rgba(255, 123, 0, 0.5); color: #ff7b00 !important;">
+      ← Home
+    </a>
   </div>
-</div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <div class="form-box glass-card p-4 p-md-5" style="width: 100%; max-width: 480px;">
+    <div class="text-center mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 50" width="60" height="48" style="vertical-align: middle;">
+            <rect x="5" y="5" width="13" height="40" fill="#2d6063" />
+            <line x1="5" y1="10" x2="18" y2="23" stroke="#16393b" stroke-width="1.5" />
+            <line x1="5" y1="15" x2="18" y2="28" stroke="#16393b" stroke-width="1.5" />
+            <line x1="5" y1="20" x2="18" y2="33" stroke="#16393b" stroke-width="1.5" />
+            <line x1="5" y1="35" x2="10" y2="40" stroke="#16393b" stroke-width="1.5" />
+            <line x1="13" y1="5" x2="18" y2="10" stroke="#16393b" stroke-width="1.5" />
+            <text x="21" y="41" font-family="Georgia, 'Times New Roman', serif" font-weight="900" font-size="44" fill="#e8d0b5" stroke="#1c1618" stroke-width="1.5" letter-spacing="-1">B</text>
+            <text x="17" y="39" font-family="Georgia, 'Times New Roman', serif" font-weight="900" font-size="44" fill="#ffffff" stroke="#1c1618" stroke-width="1.5" letter-spacing="-1">B</text>
+        </svg>
+    </div>
+    <h3 class="text-center mb-4" style="color: #fff; font-weight: 700; letter-spacing: 1px; font-family: 'Orbitron', sans-serif;">Join BOOKMYGAME</h3>
 
+    <!-- Dynamic Warning Banner for Guard redirects -->
+    <div id="authAlert" class="auth-msg-banner d-none">
+      <strong>Authentication Required!</strong> Please register or sign in to your account first to access the Games and Booking sections.
+    </div>
+
+    <form id="registrationForm">
+      <div class="mb-3">
+        <label class="form-label">Full Name</label>
+        <input type="text" class="form-control" placeholder="Enter your full name" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">E-mail Address</label>
+        <input type="email" class="form-control" placeholder="Enter your email" required>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-control" placeholder="Create a strong password" required>
+      </div>
+
+      <button type="submit" class="btn btn-register w-100">Register</button>
+    </form>
+
+    <p class="text-center mt-4 mb-0 text-white-50">
+      Already have an account? <a id="signInLink" href="signin.html">Sign in</a>
+    </p>
+  </div>
+
+  <!-- Dynamic Success/Error Toast notification -->
+  <div id="toastNotification" class="premium-toast glass-card">
+    <span id="toastMessage"></span>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const isAuthRequired = urlParams.get("message") === "auth_required";
+      const redirectDest = urlParams.get("redirect") || "games.html";
+      
+      // Show auth warning if redirected
+      if (isAuthRequired) {
+        const authAlert = document.getElementById("authAlert");
+        authAlert.classList.remove("d-none");
+      }
+
+      // Propagate original redirect parameter to sign-in link
+      const signInLink = document.getElementById("signInLink");
+      signInLink.href = `signin.html?redirect=${encodeURIComponent(redirectDest)}${isAuthRequired ? '&message=auth_required' : ''}`;
+
+      // Handle Submission
+      const form = document.getElementById("registrationForm");
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        
+        // Save auth state
+        sessionStorage.setItem("isLoggedIn", "true");
+
+        // Toast alert
+        const toast = document.getElementById("toastNotification");
+        const toastMsg = document.getElementById("toastMessage");
+        toast.className = "premium-toast success active glass-card";
+        toastMsg.textContent = "Registration Successful! Logging you in...";
+
+        setTimeout(() => {
+          window.location.href = redirectDest;
+        }, 1500);
+      });
+    });
+  </script>
 </body>
 </html>
