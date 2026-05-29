@@ -8,7 +8,7 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
     />
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;700;800&family=Russo+One&family=Share+Tech+Mono&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="CSS/STYLES.CSS">
 </head>
 <body>
@@ -23,12 +23,12 @@
         <div class="container">
             <a class="navbar-brand fw-bold" href="index.html">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 50" width="40" height="32" style="vertical-align: middle; margin-right: 8px;">
-                    <rect x="5" y="5" width="13" height="40" fill="#2d6063" />
-                    <line x1="5" y1="10" x2="18" y2="23" stroke="#16393b" stroke-width="1.5" />
-                    <line x1="5" y1="15" x2="18" y2="28" stroke="#16393b" stroke-width="1.5" />
-                    <line x1="5" y1="20" x2="18" y2="33" stroke="#16393b" stroke-width="1.5" />
-                    <line x1="5" y1="35" x2="10" y2="40" stroke="#16393b" stroke-width="1.5" />
-                    <line x1="13" y1="5" x2="18" y2="10" stroke="#16393b" stroke-width="1.5" />
+                    <rect x="5" y="5" width="13" height="40" fill="#5c00a3" />
+                    <line x1="5" y1="10" x2="18" y2="23" stroke="#2d0052" stroke-width="1.5" />
+                    <line x1="5" y1="15" x2="18" y2="28" stroke="#2d0052" stroke-width="1.5" />
+                    <line x1="5" y1="20" x2="18" y2="33" stroke="#2d0052" stroke-width="1.5" />
+                    <line x1="5" y1="35" x2="10" y2="40" stroke="#2d0052" stroke-width="1.5" />
+                    <line x1="13" y1="5" x2="18" y2="10" stroke="#2d0052" stroke-width="1.5" />
                     <text x="21" y="41" font-family="Georgia, 'Times New Roman', serif" font-weight="900" font-size="44" fill="#e8d0b5" stroke="#1c1618" stroke-width="1.5" letter-spacing="-1">B</text>
                     <text x="17" y="39" font-family="Georgia, 'Times New Roman', serif" font-weight="900" font-size="44" fill="#ffffff" stroke="#1c1618" stroke-width="1.5" letter-spacing="-1">B</text>
                 </svg>
@@ -48,7 +48,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="index.html">Home</a>
                     </li>
-                    <li class="nav-item px-lg-2 mb-2 mb-lg-0">
+                    <li class="nav-item px-lg-2 mb-2 mb-lg-0" id="navRegisterItem">
                         <a class="btn-nav-register" href="register.html">Register</a>
                     </li>
                     <li class="nav-item">
@@ -57,8 +57,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="booking.html">Booking</a>
                     </li>
+                    <li class="nav-item position-relative" id="navCartItem" style="display: none !important; margin-right: 15px;">
+                        <a class="nav-link text-white" href="#" id="cartToggleBtn" style="font-size: 1.1rem; padding: 8px;">
+                            🛒<span class="cart-badge-nav" id="cartBadgeCount">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="navProfileItem" style="display: none !important;">
+                        <a class="nav-link" href="profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item" id="navSignOutItem" style="display: none !important;">
+                        <a class="nav-link" href="#" id="signOutBtn" style="color: #ffc107 !important;">Sign Out</a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="contact.html">Contact</a>
                     </li>
                     <!-- High-tech Magnifying Glass search block exactly like reference image -->
                     <li class="nav-item">
@@ -80,7 +91,7 @@
             
             <!-- Slide 1: PS5 -->
             <div class="slide active">
-                <div class="slide-bg" style="background-image: url('https://i.pinimg.com/1200x/77/01/5f/77015f36ed8eb2d0d7c2b94424469aaa.jpg');"></div>
+                <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=1600&auto=format&fit=crop');"></div>
                 <div class="slider-content">
                     <span class="slider-badge">PLAYSTATION 5 LOUNGE</span>
                     <h1 class="slider-title">CREATE YOUR VIRTUAL WORLDS</h1>
@@ -91,7 +102,7 @@
             
             <!-- Slide 2: Gaming PC -->
             <div class="slide">
-                <div class="slide-bg" style="background-image: url('https://i.pinimg.com/736x/a7/c4/17/a7c417c2cf2920fa2fc7c109aa8cc750.jpg');"></div>
+                <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=1600&auto=format&fit=crop');"></div>
                 <div class="slider-content">
                     <span class="slider-badge">HIGH-END PC SETUP</span>
                     <h1 class="slider-title">UNLEASH ULTIMATE POWER</h1>
@@ -102,7 +113,7 @@
             
             <!-- Slide 3: VR Immersive Room -->
             <div class="slide">
-                <div class="slide-bg" style="background-image: url('https://i.pinimg.com/1200x/29/e5/b4/29e5b40fc3bd1d36e28d081fa2f43d9c.jpg');"></div>
+                <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=1600&auto=format&fit=crop');"></div>
                 <div class="slider-content">
                     <span class="slider-badge">VIRTUAL REALITY MATRIX</span>
                     <h1 class="slider-title">STEP BEYOND REALITY</h1>
@@ -113,7 +124,7 @@
 
         </div>
         
-        <!-- Side Controls (Orange Arrows from reference image) -->
+        <!-- Side Controls (Teal Arrows from reference image) -->
         <button class="slider-arrow slider-arrow-prev" id="prevSlideBtn">❮</button>
         <button class="slider-arrow slider-arrow-next" id="nextSlideBtn">❯</button>
         
@@ -124,6 +135,33 @@
             <div class="slider-dot" data-slide="2"></div>
         </div>
     </section>
+
+    <!-- High-Tech Interactive Stats Dashboard (Wow factor on entrance) -->
+    <div class="container mt-5 fade-in-up">
+        <div class="row g-4 justify-content-center text-center">
+            <div class="col-md-4 mb-3 mb-md-0">
+                <div class="glow-widget float-animation">
+                    <div class="glow-widget-title">ACTIVE LOUNGERS</div>
+                    <div class="glow-widget-value text-success">1,420+ ONLINE</div>
+                    <p class="glow-widget-desc">Live gaming battle stations active right now.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3 mb-md-0">
+                <div class="glow-widget float-animation" style="animation-delay: 2s;">
+                    <div class="glow-widget-title">LIVE CD COPIES</div>
+                    <div class="glow-widget-value text-warning">842 IN STOCK</div>
+                    <p class="glow-widget-desc">Premium game CDs ready for fast delivery/rent.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glow-widget float-animation" style="animation-delay: 4s;">
+                    <div class="glow-widget-title">SECURE DOWNKEYS</div>
+                    <div class="glow-widget-value text-info">99.8% SUCCESS</div>
+                    <p class="glow-widget-desc">Decentralized and instant activation code delivery.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Main Content Section below Hero -->
     <div class="container mt-5">
@@ -147,8 +185,8 @@
             
             <!-- PS5 Card -->
             <div class="col-md-4 mb-4">
-                <div class="card shadow glass-card">
-                    <img src="https://i.pinimg.com/736x/cb/44/e9/cb44e938bef3d877aa115fdba8968b18.jpg"
+                <div class="card shadow glass-card h-100">
+                    <img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=600&auto=format&fit=crop"
                          class="card-img-top p-3" alt="PS5">
                     <div class="card-body">
                         <h5 class="card-title text-warning fw-bold" style="font-family: 'Orbitron', sans-serif; letter-spacing: 1px;">PS5 Lounge</h5>
@@ -159,8 +197,8 @@
             
             <!-- Gaming PC Card -->
             <div class="col-md-4 mb-4">
-                <div class="card shadow glass-card">
-                    <img src="https://t3.ftcdn.net/jpg/06/14/21/94/240_F_614219455_yEBWv6lhVgKxCECY5IiyBibDK598z9Ol.jpg"
+                <div class="card shadow glass-card h-100">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&auto=format&fit=crop"
                          class="card-img-top p-3" alt="Gaming PC">
                     <div class="card-body">
                         <h5 class="card-title text-warning fw-bold" style="font-family: 'Orbitron', sans-serif; letter-spacing: 1px;">Gaming PC</h5>
@@ -171,8 +209,8 @@
 
             <!-- VR Gaming Room Card -->
             <div class="col-md-4 mb-4">
-                <div class="card shadow glass-card">
-                    <img src="https://t3.ftcdn.net/jpg/06/83/10/48/240_F_683104855_VnfZ9YQPzxh4xPMBKXRsDs76iWYUMeXX.jpg"
+                <div class="card shadow glass-card h-100">
+                    <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=600&auto=format&fit=crop"
                          class="card-img-top p-3" alt="VR Gaming Room">
                     <div class="card-body">
                         <h5 class="card-title text-warning fw-bold" style="font-family: 'Orbitron', sans-serif; letter-spacing: 1px;">VR Gaming Room</h5>
@@ -181,6 +219,35 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <!-- Cyber Quest Memory Match Game Section -->
+    <div class="container mb-5">
+        <div class="quest-container glass-card fade-in-up" style="animation-delay: 0.5s;">
+            <div class="quest-header">
+                <span class="quest-badge">CYBER CHALLENGE ACTIVE</span>
+                <h3 class="quest-title">NEON MEMORY MATCH</h3>
+                <p class="text-white-50 small mb-0">Match the premium gaming gears in under 12 moves to unlock a special loyalty discount coupon!</p>
+            </div>
+            
+            <div class="quest-stats">
+                <span>MOVES: <strong id="questMoves">0</strong></span>
+                <span>MATCHES: <strong id="questMatches">0/8</strong></span>
+            </div>
+            
+            <div class="memory-grid" id="memoryGrid">
+                <!-- Injected dynamically via JS -->
+            </div>
+            
+            <div class="quest-success-banner" id="questSuccessBanner">
+                <h4>🎉 CHALLENGE ACCOMPLISHED!</h4>
+                <p>You have unlocked Jishant's exclusive loyalty voucher! Apply it at checkout:</p>
+                <div class="quest-promo-code">JISHANT10</div>
+                <div>
+                    <button class="btn-quest-reset" onclick="resetQuestGame()">PLAY AGAIN</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -259,6 +326,308 @@
         showSlide(currentSlide);
         startAutoCycle();
       });
+
+      // Dynamic Navbar Authentication state toggler
+      document.addEventListener("DOMContentLoaded", function () {
+        const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
+        const navRegisterItem = document.getElementById("navRegisterItem");
+        const navProfileItem = document.getElementById("navProfileItem");
+        const navSignOutItem = document.getElementById("navSignOutItem");
+
+        if (isLoggedIn) {
+          if (navRegisterItem) navRegisterItem.style.setProperty("display", "none", "important");
+          if (navProfileItem) navProfileItem.style.setProperty("display", "block", "important");
+          if (navSignOutItem) navSignOutItem.style.setProperty("display", "block", "important");
+        } else {
+          if (navRegisterItem) navRegisterItem.style.setProperty("display", "block", "important");
+          if (navProfileItem) navProfileItem.style.setProperty("display", "none", "important");
+          if (navSignOutItem) navSignOutItem.style.setProperty("display", "none", "important");
+        }
+
+        const signOutBtn = document.getElementById("signOutBtn");
+        if (signOutBtn) {
+          signOutBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            sessionStorage.clear();
+            window.location.href = "index.html";
+          });
+        }
+      });
+
+      // Global Shopping Cart Controller
+      document.addEventListener("DOMContentLoaded", function () {
+        const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
+        if (!isLoggedIn) return;
+
+        // 1. Dynamically inject Cart Drawer HTML to body
+        const drawerHtml = `
+          <div class="cart-drawer-overlay" id="cartDrawerOverlay">
+            <div class="cart-drawer" id="cartDrawer">
+              <div class="cart-header">
+                <h4 class="cart-title">SHOPPING CART</h4>
+                <button class="cart-close-btn" id="cartCloseBtn">&times;</button>
+              </div>
+              <div class="cart-items-container" id="cartItemsList">
+                <!-- Populated dynamically -->
+              </div>
+              <div class="cart-footer">
+                <div class="cart-summary-line">
+                  <span>Subtotal</span>
+                  <span id="cartSubtotal">₹0.00</span>
+                </div>
+                <div class="cart-summary-line">
+                  <span>GST (18%)</span>
+                  <span id="cartTax">₹0.00</span>
+                </div>
+                <div class="cart-total-line">
+                  <span>Grand Total</span>
+                  <span id="cartGrandTotal">₹0.00</span>
+                </div>
+                <button class="btn btn-checkout mt-2" id="cartCheckoutBtn">PROCEED TO CHECKOUT</button>
+              </div>
+            </div>
+          </div>
+        `;
+        document.body.insertAdjacentHTML("beforeend", drawerHtml);
+
+        // 2. Initialize Cart State
+        let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+
+        // 3. UI Selectors
+        const overlay = document.getElementById("cartDrawerOverlay");
+        const drawer = document.getElementById("cartDrawer");
+        const closeBtn = document.getElementById("cartCloseBtn");
+        const checkoutBtn = document.getElementById("cartCheckoutBtn");
+        const itemsList = document.getElementById("cartItemsList");
+        const cartToggleBtn = document.getElementById("cartToggleBtn");
+        const cartBadgeCount = document.getElementById("cartBadgeCount");
+        const subtotalEl = document.getElementById("cartSubtotal");
+        const taxEl = document.getElementById("cartTax");
+        const totalEl = document.getElementById("cartGrandTotal");
+        const navCartItem = document.getElementById("navCartItem");
+
+        // Show Cart Icon in navbar
+        if (navCartItem) navCartItem.style.setProperty("display", "block", "important");
+
+        // Toggle Drawer
+        function toggleCartDrawer() {
+          overlay.classList.toggle("active");
+        }
+
+        if (cartToggleBtn) cartToggleBtn.addEventListener("click", (e) => { e.preventDefault(); toggleCartDrawer(); });
+        if (closeBtn) closeBtn.addEventListener("click", toggleCartDrawer);
+        if (overlay) overlay.addEventListener("click", (e) => { if (e.target === overlay) toggleCartDrawer(); });
+
+        // Render Cart Items
+        window.renderGlobalCart = function() {
+          itemsList.innerHTML = "";
+          let subtotal = 0;
+
+          if (cart.length === 0) {
+            itemsList.innerHTML = `<div class="empty-state">YOUR CART IS EMPTY.<br><small>Add some epic game CDs to start playing!</small></div>`;
+            checkoutBtn.setAttribute("disabled", "true");
+          } else {
+            checkoutBtn.removeAttribute("disabled");
+            cart.forEach((item, index) => {
+              subtotal += parseFloat(item.price);
+              const itemEl = document.createElement("div");
+              itemEl.className = "cart-item";
+              itemEl.innerHTML = `
+                <img src="${item.image}" class="cart-item-img" alt="${item.title}">
+                <div class="cart-item-details">
+                  <h5 class="cart-item-title">${item.title}</h5>
+                  <p class="cart-item-price">₹${parseFloat(item.price).toLocaleString('en-IN')}</p>
+                </div>
+                <button class="cart-item-remove" onclick="removeGlobalCartItem(${index})">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                  </svg>
+                </button>
+              `;
+              itemsList.appendChild(itemEl);
+            });
+          }
+
+          // Update Totals
+          const gst = subtotal * 0.18;
+          const grandTotal = subtotal + gst;
+
+          if (cartBadgeCount) cartBadgeCount.textContent = cart.length;
+          subtotalEl.textContent = `₹${subtotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
+          taxEl.textContent = `₹${gst.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
+          totalEl.textContent = `₹${grandTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
+        };
+
+        window.removeGlobalCartItem = function(index) {
+          cart.splice(index, 1);
+          sessionStorage.setItem("cart", JSON.stringify(cart));
+          renderGlobalCart();
+        };
+
+        window.addGlobalCartItem = function(gameId, title, price, image) {
+          cart.push({ gameId, title, price, image });
+          sessionStorage.setItem("cart", JSON.stringify(cart));
+          renderGlobalCart();
+          overlay.classList.add("active");
+        };
+
+        // Checkout handler
+        checkoutBtn.addEventListener("click", function () {
+          const userId = sessionStorage.getItem("userId");
+          const toast = document.getElementById("toastNotification");
+          const toastMsg = document.getElementById("toastMessage");
+
+          if (!userId) return;
+
+          checkoutBtn.setAttribute("disabled", "true");
+          checkoutBtn.textContent = "CHECKING OUT...";
+
+          fetch("http://localhost:5000/api/purchase-cart", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ userId, cart })
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              toast.className = "premium-toast success active glass-card";
+              toast.style.borderColor = "#8f00ff";
+              toastMsg.innerHTML = `🛒 <strong>Purchase Successful!</strong> Checked out <strong>${cart.length}</strong> games successfully! Check your dossier history.`;
+              
+              // Clear cart
+              cart = [];
+              sessionStorage.setItem("cart", JSON.stringify(cart));
+              renderGlobalCart();
+              overlay.classList.remove("active");
+            } else {
+              toast.className = "premium-toast error active glass-card";
+              toastMsg.textContent = data.message || "Failed to checkout cart.";
+            }
+            checkoutBtn.removeAttribute("disabled");
+            checkoutBtn.textContent = "PROCEED TO CHECKOUT";
+            setTimeout(() => toast.classList.remove("active"), 4500);
+          })
+          .catch(err => {
+            console.error("Cart Checkout Error:", err);
+            toast.className = "premium-toast error active glass-card";
+            toastMsg.textContent = "Network error. Make sure your server is running.";
+            checkoutBtn.removeAttribute("disabled");
+            checkoutBtn.textContent = "PROCEED TO CHECKOUT";
+            setTimeout(() => toast.classList.remove("active"), 3500);
+          });
+        });
+
+        // Initial Render
+        renderGlobalCart();
+      });
+    </script>
+
+    <!-- Cyber Quest Memory Match Script -->
+    <script>
+      (function() {
+        const questItems = [
+          { symbol: "🎮", name: "console" },
+          { symbol: "🎧", name: "audio" },
+          { symbol: "🕹️", name: "joystick" },
+          { symbol: "💻", name: "rig" },
+          { symbol: "📀", name: "cd" },
+          { symbol: "⚡", name: "energy" },
+          { symbol: "👑", name: "crown" },
+          { symbol: "🔥", name: "fire" }
+        ];
+        
+        let cards = [...questItems, ...questItems];
+        let flippedCards = [];
+        let matchedCount = 0;
+        let moves = 0;
+        let isLocked = false;
+        
+        const grid = document.getElementById("memoryGrid");
+        const movesEl = document.getElementById("questMoves");
+        const matchesEl = document.getElementById("questMatches");
+        const banner = document.getElementById("questSuccessBanner");
+        
+        function shuffle(array) {
+          return array.sort(() => Math.random() - 0.5);
+        }
+        
+        window.initializeQuest = function() {
+          grid.innerHTML = "";
+          flippedCards = [];
+          matchedCount = 0;
+          moves = 0;
+          isLocked = false;
+          movesEl.textContent = "0";
+          matchesEl.textContent = "0/8";
+          banner.style.display = "none";
+          
+          const shuffled = shuffle(cards);
+          shuffled.forEach((item, index) => {
+            const card = document.createElement("div");
+            card.className = "memory-card";
+            card.dataset.name = item.name;
+            card.dataset.index = index;
+            card.innerHTML = `
+              <div class="memory-card-inner">
+                <div class="memory-card-back">⚡</div>
+                <div class="memory-card-front">${item.symbol}</div>
+              </div>
+            `;
+            card.addEventListener("click", () => flipCard(card));
+            grid.appendChild(card);
+          });
+        };
+        
+        function flipCard(card) {
+          if (isLocked || card.classList.contains("flipped") || card.classList.contains("matched")) return;
+          
+          card.classList.add("flipped");
+          flippedCards.push(card);
+          
+          if (flippedCards.length === 2) {
+            moves++;
+            movesEl.textContent = moves;
+            checkMatch();
+          }
+        }
+        
+        function checkMatch() {
+          isLocked = true;
+          const [c1, c2] = flippedCards;
+          const isMatch = c1.dataset.name === c2.dataset.name;
+          
+          if (isMatch) {
+            c1.classList.add("matched");
+            c2.classList.add("matched");
+            matchedCount++;
+            matchesEl.textContent = `${matchedCount}/8`;
+            flippedCards = [];
+            isLocked = false;
+            
+            if (matchedCount === 8) {
+              setTimeout(() => {
+                banner.style.display = "block";
+                banner.scrollIntoView({ behavior: "smooth" });
+              }, 500);
+            }
+          } else {
+            setTimeout(() => {
+              c1.classList.remove("flipped");
+              c2.classList.remove("flipped");
+              flippedCards = [];
+              isLocked = false;
+            }, 1000);
+          }
+        }
+        
+        window.resetQuestGame = function() {
+          initializeQuest();
+        };
+        
+        document.addEventListener("DOMContentLoaded", initializeQuest);
+      })();
     </script>
 </body>
 </html>

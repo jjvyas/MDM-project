@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User Profile - BOOKMYGAME</title>
+
+  <!-- Blocking Auth Guard -->
+  <script>
+    if (sessionStorage.getItem("isLoggedIn") !== "true") {
+      window.location.replace("register.html?message=auth_required&redirect=profile.html");
+    }
+  </script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;700;800&family=Russo+One&family=Share+Tech+Mono&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="CSS/STYLES.CSS">
+  <style>
+    body {
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .profile-header {
+      margin-top: 40px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .profile-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #fff;
+      text-shadow: 0 0 15px rgba(143, 0, 255, 0.4);
+    }
+    .profile-container {
+      max-width: 1100px;
+      margin: 0 auto 50px auto;
+    }
+    .profile-section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      color: #8f00ff;
+      border-bottom: 2px solid rgba(143, 0, 255, 0.3);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+    .info-label {
+      font-family: 'Share Tech Mono', monospace;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      margin-bottom: 2px;
+    }
+    .info-value {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 15px;
+    }
+    .history-card {
+      background: rgba(255, 255, 255, 0.03) !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      border-radius: 12px !important;
+      margin-bottom: 15px;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .history-card:hover {
+      background: rgba(255, 255, 255, 0.06) !important;
+      border-color: rgba(143, 0, 255, 0.25) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(143, 0, 255, 0.08);
+    }
+    .history-card-body {
+      padding: 16px 20px;
+    }
+    .history-badge {
+      font-family: 'Share Tech Mono', monospace;
+      background: rgba(143, 0, 255, 0.15);
+      color: #8f00ff;
+      border: 1px solid rgba(143, 0, 255, 0.3);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: rgba(255, 255, 255, 0.4);
+      font-family: 'Share Tech Mono', monospace;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.3);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(143, 0, 255, 0.4);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(143, 0, 255, 0.7);
+    }
+  </style>
+</head>
+<body>
+  <!-- Full Screen Background Video -->
+  <video autoplay muted loop playsinline class="bg-video">
+    <source src="bg-video.mp4" type="video/mp4">
+  </video>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-cavalier">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 50" width="40" height="32" style="vertical-align: middle; margin-right: 8px;">
+            <rect x="5" y="5" width="13" height="40" fill="#5c00a3" />
+            <line x1="5" y1="10" x2="18" y2="23" stroke="#2d0052" stroke-width="1.5" />
+            <line x1="5" y1="15" x2="18" y2="28" stroke="#2d0052" stroke-width="1.5" />
+            <line x1="5" y1="20" x2="18" y2="33" stroke="#2d0052" stroke-width="1.5" />
+            <line x1="5" y1="35" x2="10" y2="40" stroke="#2d0052" stroke-width="1.5" />
+            <line x1="13" y1="5" x2="18" y2="10" stroke="#2d0052" stroke-width="1.5" />
+            <text x="21" y="41" font-family="Georgia, 'Times New Roman', serif" font-weight="900" font-size="44" fill="#e8d0b5" stroke="#1c1618" stroke-width="1.5" letter-spacing="-1">B</text>
+            <text x="17" y="39" font-family="Georgia, 'Times New Roman', serif" font-weight="900" font-size="44" fill="#ffffff" stroke="#1c1618" stroke-width="1.5" letter-spacing="-1">B</text>
+        </svg>
+        BOOKMYGAME
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item px-lg-2 mb-2 mb-lg-0" id="navRegisterItem" style="display: none !important;">
+            <a class="btn-nav-register" href="register.html">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="games.html">Games</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="booking.html">Booking</a>
+          </li>
+          <li class="nav-item position-relative" id="navCartItem" style="display: none !important; margin-right: 15px;">
+              <a class="nav-link text-white" href="#" id="cartToggleBtn" style="font-size: 1.1rem; padding: 8px;">
+                  🛒<span class="cart-badge-nav" id="cartBadgeCount">0</span>
+              </a>
+          </li>
+          <li class="nav-item" id="navProfileItem">
+            <a class="nav-link active" href="profile.html">Profile</a>
+          </li>
+          <li class="nav-item" id="navSignOutItem">
+            <a class="nav-link" href="#" id="signOutBtn" style="color: #ffc107 !important;">Sign Out</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container profile-container my-5 px-3">
+    <div class="profile-header">
+      <h1 class="profile-title">OPERATIVE DOSSIER</h1>
+      <p class="text-white-50 font-monospace">SECURE USER COMMAND DASHBOARD</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Left Column: User Login Details Card -->
+      <aside class="col-lg-4">
+        <div class="glass-card p-4 h-100" style="background: rgba(25, 20, 50, 0.45) !important;">
+          <h3 class="profile-section-title">LOGIN DETAILS</h3>
+          
+          <div class="mb-3 text-center">
+            <div class="d-inline-block rounded-circle bg-warning p-3 mb-3" style="box-shadow: 0 0 15px rgba(255, 193, 7, 0.2);">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-person-fill text-dark" viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+              </svg>
+            </div>
+            <h4 id="profileName" class="fw-bold" style="font-family: 'Orbitron', sans-serif;">---</h4>
+            <span class="badge bg-success font-monospace px-3 py-2 mt-1">SECURE ACCESS</span>
+          </div>
+
+          <hr class="border-secondary my-4">
+
+          <div class="info-block">
+            <div class="info-label">E-Mail Address</div>
+            <div id="profileEmail" class="info-value">---</div>
+          </div>
+
+          <div class="info-block">
+            <div class="info-label">Phone Reference</div>
+            <div id="profilePhone" class="info-value">---</div>
+          </div>
+
+          <div class="info-block">
+            <div class="info-label">Dossier Created</div>
+            <div id="profileJoined" class="info-value font-monospace text-warning">---</div>
+          </div>
+
+          <button id="profileLogoutBtn" class="btn btn-outline-warning w-100 mt-3 rounded-pill py-2 font-monospace">LOGOUT SESSION</button>
+        </div>
+      </aside>
+
+      <!-- Right Column: Rentals, Purchases, Bookings -->
+      <main class="col-lg-8">
+        <div class="glass-card p-4 h-100">
+          
+          <!-- Tab Links -->
+          <ul class="nav nav-pills mb-4 justify-content-center font-monospace" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active px-4 py-2 me-2" id="pills-purchases-tab" data-bs-toggle="pill" data-bs-target="#pills-purchases" type="button" role="tab" style="border-radius: 8px;">Purchases</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link px-4 py-2 me-2" id="pills-rentals-tab" data-bs-toggle="pill" data-bs-target="#pills-rentals" type="button" role="tab" style="border-radius: 8px;">Rentals</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link px-4 py-2" id="pills-bookings-tab" data-bs-toggle="pill" data-bs-target="#pills-bookings" type="button" role="tab" style="border-radius: 8px;">Lounge Bookings</button>
+            </li>
+          </ul>
+
+          <!-- Tab Content Panels -->
+          <div class="tab-content" id="pills-tabContent">
+            
+            <!-- Purchases Panel -->
+            <div class="tab-pane fade show active" id="pills-purchases" role="tabpanel">
+              <h3 class="profile-section-title">PURCHASE HISTORY</h3>
+              <div id="purchasesList">
+                <div class="empty-state">Loading purchases...</div>
+              </div>
+            </div>
+
+            <!-- Rentals Panel -->
+            <div class="tab-pane fade" id="pills-rentals" role="tabpanel">
+              <h3 class="profile-section-title">ACTIVE RENTALS</h3>
+              <div id="rentalsList">
+                <div class="empty-state">Loading active rentals...</div>
+              </div>
+            </div>
+
+            <!-- Bookings Panel -->
+            <div class="tab-pane fade" id="pills-bookings" role="tabpanel">
+              <h3 class="profile-section-title">PS5 SEAT BOOKINGS</h3>
+              <div id="bookingsList">
+                <div class="empty-state">Loading bookings...</div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Dynamic Success/Error Toast notification -->
+  <div id="toastNotification" class="premium-toast glass-card">
+    <span id="toastMessage"></span>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Profile Loader Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const userId = sessionStorage.getItem("userId");
+      const toast = document.getElementById("toastNotification");
+      const toastMsg = document.getElementById("toastMessage");
+
+      // Handle session clearing / logout
+      function executeLogout() {
+        sessionStorage.clear();
+        toast.className = "premium-toast success active glass-card";
+        toast.style.borderColor = "#ffc107";
+        toastMsg.textContent = "Session Terminated. Redirecting to home...";
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1500);
+      }
+
+      const signOutBtn = document.getElementById("signOutBtn");
+      if (signOutBtn) signOutBtn.addEventListener("click", (e) => { e.preventDefault(); executeLogout(); });
+
+      const profileLogoutBtn = document.getElementById("profileLogoutBtn");
+      if (profileLogoutBtn) profileLogoutBtn.addEventListener("click", executeLogout);
+
+      // Load User Dossier dynamically from Backend Express Server linked to MySQL
+      fetch(`http://localhost:5000/api/profile/${userId}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            // 1. Populate details block
+            document.getElementById("profileName").textContent = data.profile.name;
+            document.getElementById("profileEmail").textContent = data.profile.email;
+            document.getElementById("profilePhone").textContent = data.profile.phone || "Not Registered";
+            
+            const joinDate = new Date(data.profile.joinedAt).toLocaleDateString('en-US', {
+              year: 'numeric', month: 'long', day: 'numeric'
+            });
+            document.getElementById("profileJoined").textContent = joinDate;
+
+            // 2. Render Purchases
+            const purchasesList = document.getElementById("purchasesList");
+            if (data.purchases.length === 0) {
+              purchasesList.innerHTML = `<div class="empty-state">NO PURCHASE RECORDS FOUND.<br><a href="games.html" class="btn btn-outline-warning btn-sm mt-3 px-3 rounded-pill">SHOP GAMES</a></div>`;
+            } else {
+              purchasesList.innerHTML = "";
+              data.purchases.forEach(order => {
+                const orderDate = new Date(order.order_date).toLocaleDateString();
+                const keyGenerated = `BMG-${order.title.substring(0, 3).toUpperCase()}-${Math.floor(100000 + Math.random() * 900000)}`;
+                
+                const card = document.createElement("div");
+                card.className = "card history-card";
+                card.innerHTML = `
+                  <div class="card-body history-card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h5 class="fw-bold mb-0 text-white">${order.title}</h5>
+                      <span class="history-badge">Purchased</span>
+                    </div>
+                    <div class="row g-2 small text-white-50 font-monospace">
+                      <div class="col-md-6">Platform: <span class="text-white">${order.platform}</span></div>
+                      <div class="col-md-6 text-md-end">Amount Paid: <span class="text-warning">₹${parseFloat(order.total_amount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span></div>
+                      <div class="col-md-6">Transaction Date: <span class="text-white">${orderDate}</span></div>
+                      <div class="col-md-6 text-md-end">Download Key: <span class="text-success">${keyGenerated}</span></div>
+                    </div>
+                  </div>
+                `;
+                purchasesList.appendChild(card);
+              });
+            }
+
+            // 3. Render Rentals
+            const rentalsList = document.getElementById("rentalsList");
+            if (data.rentals.length === 0) {
+              rentalsList.innerHTML = `<div class="empty-state">NO ACTIVE GAME RENTALS.<br><a href="games.html" class="btn btn-outline-warning btn-sm mt-3 px-3 rounded-pill">RENT GAME</a></div>`;
+            } else {
+              rentalsList.innerHTML = "";
+              data.rentals.forEach(rental => {
+                const rentDate = new Date(rental.rent_date).toLocaleDateString();
+                const returnDate = new Date(rental.return_date).toLocaleDateString();
+                const isOverdue = new Date() > new Date(rental.return_date);
+
+                const card = document.createElement("div");
+                card.className = "card history-card";
+                card.innerHTML = `
+                  <div class="card-body history-card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h5 class="fw-bold mb-0 text-white">${rental.title}</h5>
+                      <span class="history-badge" style="background: rgba(25, 230, 140, 0.12); color: #1ce68c; border-color: rgba(28, 230, 140, 0.3);">Rented</span>
+                    </div>
+                    <div class="row g-2 small text-white-50 font-monospace">
+                      <div class="col-md-6">Platform: <span class="text-white">${rental.platform}</span></div>
+                      <div class="col-md-6 text-md-end">Status: <span class="${isOverdue ? 'text-danger fw-bold' : 'text-success'}">${isOverdue ? 'OVERDUE' : 'ACTIVE'}</span></div>
+                      <div class="col-md-6">Rent Date: <span class="text-white">${rentDate}</span></div>
+                      <div class="col-md-6 text-md-end">Return Deadline: <span class="${isOverdue ? 'text-danger' : 'text-warning'}">${returnDate}</span></div>
+                    </div>
+                  </div>
+                `;
+                rentalsList.appendChild(card);
+              });
+            }
+
+            // 4. Render Bookings
+            const bookingsList = document.getElementById("bookingsList");
+            if (data.bookings.length === 0) {
+              bookingsList.innerHTML = `<div class="empty-state">NO ACTIVE SEAT BOOKINGS.<br><a href="booking.html" class="btn btn-outline-warning btn-sm mt-3 px-3 rounded-pill">BOOK PS5 SEAT</a></div>`;
+            } else {
+              bookingsList.innerHTML = "";
+              data.bookings.forEach(booking => {
+                const bDate = new Date(booking.booking_date).toLocaleDateString();
+
+                const card = document.createElement("div");
+                card.className = "card history-card";
+                card.innerHTML = `
+                  <div class="card-body history-card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h5 class="fw-bold mb-0 text-white">${booking.cafe_name}</h5>
+                      <span class="history-badge" style="background: rgba(13, 202, 240, 0.15); color: #0dcaf0; border-color: rgba(13, 202, 240, 0.3);">Reserved</span>
+                    </div>
+                    <p class="small text-white-50 mb-2 font-monospace">Location: <span class="text-white">${booking.location}</span></p>
+                    <div class="row g-2 small text-white-50 font-monospace">
+                      <div class="col-md-6">Reserved Seat: <span class="text-warning fw-bold">${booking.seat_number}</span></div>
+                      <div class="col-md-6 text-md-end">Session Duration: <span class="text-white">${booking.hours} Hours</span></div>
+                      <div class="col-md-6">Booking Date: <span class="text-white">${bDate}</span></div>
+                    </div>
+                  </div>
+                `;
+                bookingsList.appendChild(card);
+              });
+            }
+          } else {
+            console.error("Profile API failure:", data.message);
+          }
+        })
+        .catch(err => {
+          console.error("Profile Fetch Error:", err);
+          document.getElementById("purchasesList").innerHTML = `<div class="empty-state text-danger">Server Offline. Dynamic profile history cannot be parsed.</div>`;
+          document.getElementById("rentalsList").innerHTML = `<div class="empty-state text-danger">Server Offline.</div>`;
+          document.getElementById("bookingsList").innerHTML = `<div class="empty-state text-danger">Server Offline.</div>`;
+        });
+    });
+
+    // Global Shopping Cart Controller
+    document.addEventListener("DOMContentLoaded", function () {
+      const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
+      if (!isLoggedIn) return;
+
+      // 1. Dynamically inject Cart Drawer HTML to body
+      const drawerHtml = `
+        <div class="cart-drawer-overlay" id="cartDrawerOverlay">
+          <div class="cart-drawer" id="cartDrawer">
+            <div class="cart-header">
+              <h4 class="cart-title">SHOPPING CART</h4>
+              <button class="cart-close-btn" id="cartCloseBtn">&times;</button>
+            </div>
+            <div class="cart-items-container" id="cartItemsList">
+              <!-- Populated dynamically -->
+            </div>
+            <div class="cart-footer">
+              <div class="cart-summary-line">
+                <span>Subtotal</span>
+                <span id="cartSubtotal">₹0.00</span>
+              </div>
+              <div class="cart-summary-line">
+                <span>GST (18%)</span>
+                <span id="cartTax">₹0.00</span>
+              </div>
+              <div class="cart-total-line">
+                <span>Grand Total</span>
+                <span id="cartGrandTotal">₹0.00</span>
+              </div>
+              <button class="btn btn-checkout mt-2" id="cartCheckoutBtn">PROCEED TO CHECKOUT</button>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML("beforeend", drawerHtml);
+
+      // 2. Initialize Cart State
+      let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+
+      // 3. UI Selectors
+      const overlay = document.getElementById("cartDrawerOverlay");
+      const drawer = document.getElementById("cartDrawer");
+      const closeBtn = document.getElementById("cartCloseBtn");
+      const checkoutBtn = document.getElementById("cartCheckoutBtn");
+      const itemsList = document.getElementById("cartItemsList");
+      const cartToggleBtn = document.getElementById("cartToggleBtn");
+      const cartBadgeCount = document.getElementById("cartBadgeCount");
+      const subtotalEl = document.getElementById("cartSubtotal");
+      const taxEl = document.getElementById("cartTax");
+      const totalEl = document.getElementById("cartGrandTotal");
+      const navCartItem = document.getElementById("navCartItem");
+
+      // Show Cart Icon in navbar
+      if (navCartItem) navCartItem.style.setProperty("display", "block", "important");
+
+      // Toggle Drawer
+      function toggleCartDrawer() {
+        overlay.classList.toggle("active");
+      }
+
+      if (cartToggleBtn) cartToggleBtn.addEventListener("click", (e) => { e.preventDefault(); toggleCartDrawer(); });
+      if (closeBtn) closeBtn.addEventListener("click", toggleCartDrawer);
+      if (overlay) overlay.addEventListener("click", (e) => { if (e.target === overlay) toggleCartDrawer(); });
+
+      // Render Cart Items
+      window.renderGlobalCart = function() {
+        itemsList.innerHTML = "";
+        let subtotal = 0;
+
+        if (cart.length === 0) {
+          itemsList.innerHTML = `<div class="empty-state">YOUR CART IS EMPTY.<br><small>Add some epic game CDs to start playing!</small></div>`;
+          checkoutBtn.setAttribute("disabled", "true");
+        } else {
+          checkoutBtn.removeAttribute("disabled");
+          cart.forEach((item, index) => {
+            subtotal += parseFloat(item.price);
+            const itemEl = document.createElement("div");
+            itemEl.className = "cart-item";
+            itemEl.innerHTML = `
+              <img src="${item.image}" class="cart-item-img" alt="${item.title}">
+              <div class="cart-item-details">
+                <h5 class="cart-item-title">${item.title}</h5>
+                <p class="cart-item-price">₹${parseFloat(item.price).toLocaleString('en-IN')}</p>
+              </div>
+              <button class="cart-item-remove" onclick="removeGlobalCartItem(${index})">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                </svg>
+              </button>
+            `;
+            itemsList.appendChild(itemEl);
+          });
+        }
+
+        // Update Totals
+        const gst = subtotal * 0.18;
+        const grandTotal = subtotal + gst;
+
+        if (cartBadgeCount) cartBadgeCount.textContent = cart.length;
+        subtotalEl.textContent = `₹${subtotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
+        taxEl.textContent = `₹${gst.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
+        totalEl.textContent = `₹${grandTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
+      };
+
+      window.removeGlobalCartItem = function(index) {
+        cart.splice(index, 1);
+        sessionStorage.setItem("cart", JSON.stringify(cart));
+        renderGlobalCart();
+      };
+
+      window.addGlobalCartItem = function(gameId, title, price, image) {
+        cart.push({ gameId, title, price, image });
+        sessionStorage.setItem("cart", JSON.stringify(cart));
+        renderGlobalCart();
+        overlay.classList.add("active");
+      };
+
+      // Checkout handler
+      checkoutBtn.addEventListener("click", function () {
+        const userId = sessionStorage.getItem("userId");
+        const toast = document.getElementById("toastNotification");
+        const toastMsg = document.getElementById("toastMessage");
+
+        if (!userId) return;
+
+        checkoutBtn.setAttribute("disabled", "true");
+        checkoutBtn.textContent = "CHECKING OUT...";
+
+        fetch("http://localhost:5000/api/purchase-cart", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ userId, cart })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            toast.className = "premium-toast success active glass-card";
+            toast.style.borderColor = "#8f00ff";
+            toastMsg.innerHTML = `🛒 <strong>Purchase Successful!</strong> Checked out <strong>${cart.length}</strong> games successfully! Check your dossier history.`;
+            
+            // Clear cart
+            cart = [];
+            sessionStorage.setItem("cart", JSON.stringify(cart));
+            renderGlobalCart();
+            overlay.classList.remove("active");
+          } else {
+            toast.className = "premium-toast error active glass-card";
+            toastMsg.textContent = data.message || "Failed to checkout cart.";
+          }
+          checkoutBtn.removeAttribute("disabled");
+          checkoutBtn.textContent = "PROCEED TO CHECKOUT";
+          setTimeout(() => toast.classList.remove("active"), 4500);
+        })
+        .catch(err => {
+          console.error("Cart Checkout Error:", err);
+          toast.className = "premium-toast error active glass-card";
+          toastMsg.textContent = "Network error. Make sure your server is running.";
+          checkoutBtn.removeAttribute("disabled");
+          checkoutBtn.textContent = "PROCEED TO CHECKOUT";
+          setTimeout(() => toast.classList.remove("active"), 3500);
+        });
+      });
+
+      // Initial Render
+      renderGlobalCart();
+    });
+  </script>
+</body>
+</html>

@@ -6,6 +6,7 @@
   <title>Register - BOOKMYGAME</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;700;800&family=Russo+One&family=Share+Tech+Mono&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="CSS/STYLES.CSS">
   <style>
     body {
@@ -28,8 +29,8 @@
     }
     .form-control:focus {
       background: rgba(255, 255, 255, 0.1) !important;
-      border-color: #ff7b00 !important;
-      box-shadow: 0 0 10px rgba(255, 123, 0, 0.25) !important;
+      border-color: #8f00ff !important;
+      box-shadow: 0 0 10px rgba(143, 0, 255, 0.25) !important;
       outline: none !important;
     }
     .form-label {
@@ -38,7 +39,7 @@
       font-size: 0.9rem;
     }
     a {
-      color: #ff7b00 !important;
+      color: #8f00ff !important;
       text-decoration: none;
       font-weight: 500;
     }
@@ -55,7 +56,7 @@
 
   <!-- Elegant Home Button at top-left -->
   <div style="position: absolute; top: 25px; left: 25px;">
-    <a href="index.html" class="btn btn-outline-warning rounded-pill px-4" style="border-color: rgba(255, 123, 0, 0.5); color: #ff7b00 !important;">
+    <a href="index.html" class="btn btn-outline-warning rounded-pill px-4" style="border-color: rgba(143, 0, 255, 0.5); color: #8f00ff !important;">
       ← Home
     </a>
   </div>
@@ -63,12 +64,12 @@
   <div class="form-box glass-card p-4 p-md-5" style="width: 100%; max-width: 480px;">
     <div class="text-center mb-3">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 50" width="60" height="48" style="vertical-align: middle;">
-            <rect x="5" y="5" width="13" height="40" fill="#2d6063" />
-            <line x1="5" y1="10" x2="18" y2="23" stroke="#16393b" stroke-width="1.5" />
-            <line x1="5" y1="15" x2="18" y2="28" stroke="#16393b" stroke-width="1.5" />
-            <line x1="5" y1="20" x2="18" y2="33" stroke="#16393b" stroke-width="1.5" />
-            <line x1="5" y1="35" x2="10" y2="40" stroke="#16393b" stroke-width="1.5" />
-            <line x1="13" y1="5" x2="18" y2="10" stroke="#16393b" stroke-width="1.5" />
+            <rect x="5" y="5" width="13" height="40" fill="#5c00a3" />
+            <line x1="5" y1="10" x2="18" y2="23" stroke="#2d0052" stroke-width="1.5" />
+            <line x1="5" y1="15" x2="18" y2="28" stroke="#2d0052" stroke-width="1.5" />
+            <line x1="5" y1="20" x2="18" y2="33" stroke="#2d0052" stroke-width="1.5" />
+            <line x1="5" y1="35" x2="10" y2="40" stroke="#2d0052" stroke-width="1.5" />
+            <line x1="13" y1="5" x2="18" y2="10" stroke="#2d0052" stroke-width="1.5" />
             <text x="21" y="41" font-family="Georgia, 'Times New Roman', serif" font-weight="900" font-size="44" fill="#e8d0b5" stroke="#1c1618" stroke-width="1.5" letter-spacing="-1">B</text>
             <text x="17" y="39" font-family="Georgia, 'Times New Roman', serif" font-weight="900" font-size="44" fill="#ffffff" stroke="#1c1618" stroke-width="1.5" letter-spacing="-1">B</text>
         </svg>
@@ -83,17 +84,22 @@
     <form id="registrationForm">
       <div class="mb-3">
         <label class="form-label">Full Name</label>
-        <input type="text" class="form-control" placeholder="Enter your full name" required>
+        <input type="text" id="regName" class="form-control" placeholder="Enter your full name" required>
       </div>
 
       <div class="mb-3">
         <label class="form-label">E-mail Address</label>
-        <input type="email" class="form-control" placeholder="Enter your email" required>
+        <input type="email" id="regEmail" class="form-control" placeholder="Enter your email" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Phone Number</label>
+        <input type="tel" id="regPhone" class="form-control" placeholder="Enter your mobile number" required>
       </div>
 
       <div class="mb-4">
         <label class="form-label">Password</label>
-        <input type="password" class="form-control" placeholder="Create a strong password" required>
+        <input type="password" id="regPassword" class="form-control" placeholder="Create a strong password" required>
       </div>
 
       <button type="submit" class="btn btn-register w-100">Register</button>
@@ -132,19 +138,52 @@
       const form = document.getElementById("registrationForm");
       form.addEventListener("submit", function (e) {
         e.preventDefault();
-        
-        // Save auth state
-        sessionStorage.setItem("isLoggedIn", "true");
 
-        // Toast alert
+        const name = document.getElementById("regName").value;
+        const email = document.getElementById("regEmail").value;
+        const phone = document.getElementById("regPhone").value;
+        const password = document.getElementById("regPassword").value;
+
         const toast = document.getElementById("toastNotification");
         const toastMsg = document.getElementById("toastMessage");
-        toast.className = "premium-toast success active glass-card";
-        toastMsg.textContent = "Registration Successful! Logging you in...";
 
-        setTimeout(() => {
-          window.location.href = redirectDest;
-        }, 1500);
+        fetch("http://localhost:5000/api/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ name, email, phone, password })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            // Save auth state & user details
+            sessionStorage.setItem("isLoggedIn", "true");
+            sessionStorage.setItem("userId", data.user.userId);
+            sessionStorage.setItem("userName", data.user.name);
+            sessionStorage.setItem("userEmail", data.user.email);
+            sessionStorage.setItem("userPhone", data.user.phone);
+
+            toast.className = "premium-toast success active glass-card";
+            toastMsg.textContent = "Registration Successful! Logging you in...";
+
+            setTimeout(() => {
+              window.location.href = redirectDest;
+            }, 1500);
+          } else {
+            toast.className = "premium-toast error active glass-card";
+            toast.style.borderColor = "#ff4d4d";
+            toastMsg.textContent = data.message || "Registration failed. Try again.";
+            setTimeout(() => toast.classList.remove("active"), 3000);
+          }
+        })
+        .catch(err => {
+          console.error("Register Fetch Error:", err);
+          toast.className = "premium-toast error active glass-card";
+          toast.style.borderColor = "#ff4d4d";
+          toastMsg.textContent = "Network error. Make sure your server is running.";
+          setTimeout(() => toast.classList.remove("active"), 3000);
+        });
       });
     });
   </script>

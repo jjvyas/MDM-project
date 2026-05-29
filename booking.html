@@ -13,7 +13,7 @@
   </script>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;700;800&family=Russo+One&family=Share+Tech+Mono&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="CSS/STYLES.CSS">
   <style>
     body {
@@ -26,11 +26,11 @@
       background: rgba(0, 0, 0, 0.3);
     }
     ::-webkit-scrollbar-thumb {
-      background: rgba(255, 123, 0, 0.4);
+      background: rgba(143, 0, 255, 0.4);
       border-radius: 4px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 123, 0, 0.7);
+      background: rgba(143, 0, 255, 0.7);
     }
   </style>
 </head>
@@ -45,12 +45,12 @@
     <div class="container">
       <a class="navbar-brand fw-bold" href="index.html">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 50" width="40" height="32" style="vertical-align: middle; margin-right: 8px;">
-            <rect x="5" y="5" width="13" height="40" fill="#2d6063" />
-            <line x1="5" y1="10" x2="18" y2="23" stroke="#16393b" stroke-width="1.5" />
-            <line x1="5" y1="15" x2="18" y2="28" stroke="#16393b" stroke-width="1.5" />
-            <line x1="5" y1="20" x2="18" y2="33" stroke="#16393b" stroke-width="1.5" />
-            <line x1="5" y1="35" x2="10" y2="40" stroke="#16393b" stroke-width="1.5" />
-            <line x1="13" y1="5" x2="18" y2="10" stroke="#16393b" stroke-width="1.5" />
+            <rect x="5" y="5" width="13" height="40" fill="#5c00a3" />
+            <line x1="5" y1="10" x2="18" y2="23" stroke="#2d0052" stroke-width="1.5" />
+            <line x1="5" y1="15" x2="18" y2="28" stroke="#2d0052" stroke-width="1.5" />
+            <line x1="5" y1="20" x2="18" y2="33" stroke="#2d0052" stroke-width="1.5" />
+            <line x1="5" y1="35" x2="10" y2="40" stroke="#2d0052" stroke-width="1.5" />
+            <line x1="13" y1="5" x2="18" y2="10" stroke="#2d0052" stroke-width="1.5" />
             <text x="21" y="41" font-family="Georgia, 'Times New Roman', serif" font-weight="900" font-size="44" fill="#e8d0b5" stroke="#1c1618" stroke-width="1.5" letter-spacing="-1">B</text>
             <text x="17" y="39" font-family="Georgia, 'Times New Roman', serif" font-weight="900" font-size="44" fill="#ffffff" stroke="#1c1618" stroke-width="1.5" letter-spacing="-1">B</text>
         </svg>
@@ -64,7 +64,7 @@
           <li class="nav-item">
             <a class="nav-link" href="index.html">Home</a>
           </li>
-          <li class="nav-item px-lg-2 mb-2 mb-lg-0">
+          <li class="nav-item px-lg-2 mb-2 mb-lg-0" id="navRegisterItem">
             <a class="btn-nav-register" href="register.html">Register</a>
           </li>
           <li class="nav-item">
@@ -73,8 +73,19 @@
           <li class="nav-item">
             <a class="nav-link active" href="booking.html">Booking</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item position-relative" id="navCartItem" style="display: none !important; margin-right: 15px;">
+              <a class="nav-link text-white" href="#" id="cartToggleBtn" style="font-size: 1.1rem; padding: 8px;">
+                  🛒<span class="cart-badge-nav" id="cartBadgeCount">0</span>
+              </a>
+          </li>
+          <li class="nav-item" id="navProfileItem" style="display: none !important;">
+            <a class="nav-link" href="profile.html">Profile</a>
+          </li>
+          <li class="nav-item" id="navSignOutItem" style="display: none !important;">
             <a class="nav-link" href="#" id="signOutBtn" style="color: #ffc107 !important;">Sign Out</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
           </li>
         </ul>
       </div>
@@ -298,12 +309,31 @@
     document.addEventListener("DOMContentLoaded", function () {
       generateSlotAvailabilities();
 
+      // Dynamic Navbar Authentication state toggler
+      const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
+      const navRegisterItem = document.getElementById("navRegisterItem");
+      const navProfileItem = document.getElementById("navProfileItem");
+      const navSignOutItem = document.getElementById("navSignOutItem");
+
+      if (isLoggedIn) {
+        if (navRegisterItem) navRegisterItem.style.setProperty("display", "none", "important");
+        if (navProfileItem) navProfileItem.style.setProperty("display", "block", "important");
+        if (navSignOutItem) navSignOutItem.style.setProperty("display", "block", "important");
+      } else {
+        if (navRegisterItem) navRegisterItem.style.setProperty("display", "block", "important");
+        if (navProfileItem) navProfileItem.style.setProperty("display", "none", "important");
+        if (navSignOutItem) navSignOutItem.style.setProperty("display", "none", "important");
+      }
+
       // Sign Out handler
-      document.getElementById("signOutBtn").addEventListener("click", function (e) {
-        e.preventDefault();
-        sessionStorage.removeItem("isLoggedIn");
-        window.location.href = "index.html";
-      });
+      const signOutBtn = document.getElementById("signOutBtn");
+      if (signOutBtn) {
+        signOutBtn.addEventListener("click", function (e) {
+          e.preventDefault();
+          sessionStorage.clear();
+          window.location.href = "index.html";
+        });
+      }
 
       // Interactive seat click handler
       const seatGrids = document.querySelectorAll(".seats-grid");
@@ -400,47 +430,251 @@
       modalOverlay.classList.remove("active");
     }
 
-    // Confirm booking logic
+    const cafeDbIdMap = {
+      cafe1: 1,
+      cafe2: 2,
+      cafe3: 3
+    };
+
+    // Confirm booking logic with database persistence
     function confirmFinalBooking() {
       if (activeSelectedTimeSlot === null || !activeCafeId) return;
 
       const selectedSeatNum = activeSelections[activeCafeId];
       const slotText = slotAvailabilities[activeCafeId][selectedSeatNum][activeSelectedTimeSlot].time;
-
-      // 1. Mark this slot as occupied deterministically so it cannot be booked again in this session
-      slotAvailabilities[activeCafeId][selectedSeatNum][activeSelectedTimeSlot].available = false;
-
-      // 2. Mark all slots as booked? Let's check if the seat becomes occupied completely for this cafe!
-      // In the real world, the seat is occupied for that slot. To represent the seat state change in the page:
-      // Since the seat has exactly 11 seats, we can mark this seat as occupied in the layout
-      // if all of its slots are now booked, or just immediately lock the seat in the UI to make it feel responsive!
-      // Let's immediately lock the seat in the UI! That is very satisfying!
-      const seatGrid = document.querySelector(`.seats-grid[data-cafe="${activeCafeId}"]`);
-      const seatElement = seatGrid.querySelector(`.seat[data-seat="${selectedSeatNum}"]`);
+      const userId = sessionStorage.getItem("userId");
       
-      seatElement.classList.remove("selected");
-      seatElement.classList.add("occupied");
-      
-      // Reset button and selection state
-      const bookBtn = document.querySelector(`#${activeCafeId} .btn-book-trigger`);
-      bookBtn.setAttribute("disabled", "true");
-      activeSelections[activeCafeId] = null;
-
-      // Close modal
-      closeModal();
-
-      // Show dynamic success toast!
       const toast = document.getElementById("toastNotification");
       const toastMsg = document.getElementById("toastMessage");
-      
-      toast.className = "premium-toast success active glass-card";
-      toastMsg.innerHTML = `🎮 <strong>Booking Confirmed!</strong> Seat <strong>S${selectedSeatNum}</strong> at <em>${activeCafeName}</em> is reserved for <strong>${slotText}</strong>. Get ready!`;
 
-      // Hide toast after 4 seconds
-      setTimeout(() => {
-        toast.classList.remove("active");
-      }, 4500);
+      if (!userId) {
+        toast.className = "premium-toast error active glass-card";
+        toast.style.borderColor = "#ff4d4d";
+        toastMsg.textContent = "Please register or sign in to book lounge seats.";
+        setTimeout(() => toast.classList.remove("active"), 3500);
+        closeModal();
+        return;
+      }
+
+      const cafeId = cafeDbIdMap[activeCafeId];
+      const bookingDate = new Date().toISOString().split("T")[0]; // YYYY-MM-DD format for database
+      const hours = 2; // 2 hours slot duration
+      const seatNumber = `S${selectedSeatNum}`;
+
+      fetch("http://localhost:5000/api/booking", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ userId, cafeId, bookingDate, hours, seatNumber })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          // 1. Mark this slot as occupied deterministically so it cannot be booked again in this session
+          slotAvailabilities[activeCafeId][selectedSeatNum][activeSelectedTimeSlot].available = false;
+
+          // 2. Lock the seat in the UI
+          const seatGrid = document.querySelector(`.seats-grid[data-cafe="${activeCafeId}"]`);
+          const seatElement = seatGrid.querySelector(`.seat[data-seat="${selectedSeatNum}"]`);
+          
+          seatElement.classList.remove("selected");
+          seatElement.classList.add("occupied");
+          
+          // Reset button and selection state
+          const bookBtn = document.querySelector(`#${activeCafeId} .btn-book-trigger`);
+          bookBtn.setAttribute("disabled", "true");
+          activeSelections[activeCafeId] = null;
+
+          toast.className = "premium-toast success active glass-card";
+          toast.style.borderColor = "#8f00ff";
+          toastMsg.innerHTML = `🎮 <strong>Booking Confirmed!</strong> Seat <strong>${seatNumber}</strong> at <em>${activeCafeName}</em> is reserved. Saved to database!`;
+        } else {
+          toast.className = "premium-toast error active glass-card";
+          toast.style.borderColor = "#ff4d4d";
+          toastMsg.textContent = data.message || "Failed to make booking.";
+        }
+        closeModal();
+        setTimeout(() => toast.classList.remove("active"), 4500);
+      })
+      .catch(err => {
+        console.error("Booking Fetch Error:", err);
+        toast.className = "premium-toast error active glass-card";
+        toast.style.borderColor = "#ff4d4d";
+        toastMsg.textContent = "Network error. Make sure your server is running.";
+        closeModal();
+        setTimeout(() => toast.classList.remove("active"), 3500);
+      });
     }
+
+    // Global Shopping Cart Controller
+    document.addEventListener("DOMContentLoaded", function () {
+      const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
+      if (!isLoggedIn) return;
+
+      // 1. Dynamically inject Cart Drawer HTML to body
+      const drawerHtml = `
+        <div class="cart-drawer-overlay" id="cartDrawerOverlay">
+          <div class="cart-drawer" id="cartDrawer">
+            <div class="cart-header">
+              <h4 class="cart-title">SHOPPING CART</h4>
+              <button class="cart-close-btn" id="cartCloseBtn">&times;</button>
+            </div>
+            <div class="cart-items-container" id="cartItemsList">
+              <!-- Populated dynamically -->
+            </div>
+            <div class="cart-footer">
+              <div class="cart-summary-line">
+                <span>Subtotal</span>
+                <span id="cartSubtotal">₹0.00</span>
+              </div>
+              <div class="cart-summary-line">
+                <span>GST (18%)</span>
+                <span id="cartTax">₹0.00</span>
+              </div>
+              <div class="cart-total-line">
+                <span>Grand Total</span>
+                <span id="cartGrandTotal">₹0.00</span>
+              </div>
+              <button class="btn btn-checkout mt-2" id="cartCheckoutBtn">PROCEED TO CHECKOUT</button>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML("beforeend", drawerHtml);
+
+      // 2. Initialize Cart State
+      let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+
+      // 3. UI Selectors
+      const overlay = document.getElementById("cartDrawerOverlay");
+      const drawer = document.getElementById("cartDrawer");
+      const closeBtn = document.getElementById("cartCloseBtn");
+      const checkoutBtn = document.getElementById("cartCheckoutBtn");
+      const itemsList = document.getElementById("cartItemsList");
+      const cartToggleBtn = document.getElementById("cartToggleBtn");
+      const cartBadgeCount = document.getElementById("cartBadgeCount");
+      const subtotalEl = document.getElementById("cartSubtotal");
+      const taxEl = document.getElementById("cartTax");
+      const totalEl = document.getElementById("cartGrandTotal");
+      const navCartItem = document.getElementById("navCartItem");
+
+      // Show Cart Icon in navbar
+      if (navCartItem) navCartItem.style.setProperty("display", "block", "important");
+
+      // Toggle Drawer
+      function toggleCartDrawer() {
+        overlay.classList.toggle("active");
+      }
+
+      if (cartToggleBtn) cartToggleBtn.addEventListener("click", (e) => { e.preventDefault(); toggleCartDrawer(); });
+      if (closeBtn) closeBtn.addEventListener("click", toggleCartDrawer);
+      if (overlay) overlay.addEventListener("click", (e) => { if (e.target === overlay) toggleCartDrawer(); });
+
+      // Render Cart Items
+      window.renderGlobalCart = function() {
+        itemsList.innerHTML = "";
+        let subtotal = 0;
+
+        if (cart.length === 0) {
+          itemsList.innerHTML = `<div class="empty-state">YOUR CART IS EMPTY.<br><small>Add some epic game CDs to start playing!</small></div>`;
+          checkoutBtn.setAttribute("disabled", "true");
+        } else {
+          checkoutBtn.removeAttribute("disabled");
+          cart.forEach((item, index) => {
+            subtotal += parseFloat(item.price);
+            const itemEl = document.createElement("div");
+            itemEl.className = "cart-item";
+            itemEl.innerHTML = `
+              <img src="${item.image}" class="cart-item-img" alt="${item.title}">
+              <div class="cart-item-details">
+                <h5 class="cart-item-title">${item.title}</h5>
+                <p class="cart-item-price">₹${parseFloat(item.price).toLocaleString('en-IN')}</p>
+              </div>
+              <button class="cart-item-remove" onclick="removeGlobalCartItem(${index})">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                </svg>
+              </button>
+            `;
+            itemsList.appendChild(itemEl);
+          });
+        }
+
+        // Update Totals
+        const gst = subtotal * 0.18;
+        const grandTotal = subtotal + gst;
+
+        if (cartBadgeCount) cartBadgeCount.textContent = cart.length;
+        subtotalEl.textContent = `₹${subtotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
+        taxEl.textContent = `₹${gst.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
+        totalEl.textContent = `₹${grandTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
+      };
+
+      window.removeGlobalCartItem = function(index) {
+        cart.splice(index, 1);
+        sessionStorage.setItem("cart", JSON.stringify(cart));
+        renderGlobalCart();
+      };
+
+      window.addGlobalCartItem = function(gameId, title, price, image) {
+        cart.push({ gameId, title, price, image });
+        sessionStorage.setItem("cart", JSON.stringify(cart));
+        renderGlobalCart();
+        overlay.classList.add("active");
+      };
+
+      // Checkout handler
+      checkoutBtn.addEventListener("click", function () {
+        const userId = sessionStorage.getItem("userId");
+        const toast = document.getElementById("toastNotification");
+        const toastMsg = document.getElementById("toastMessage");
+
+        if (!userId) return;
+
+        checkoutBtn.setAttribute("disabled", "true");
+        checkoutBtn.textContent = "CHECKING OUT...";
+
+        fetch("http://localhost:5000/api/purchase-cart", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ userId, cart })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            toast.className = "premium-toast success active glass-card";
+            toast.style.borderColor = "#8f00ff";
+            toastMsg.innerHTML = `🛒 <strong>Purchase Successful!</strong> Checked out <strong>${cart.length}</strong> games successfully! Check your dossier history.`;
+            
+            // Clear cart
+            cart = [];
+            sessionStorage.setItem("cart", JSON.stringify(cart));
+            renderGlobalCart();
+            overlay.classList.remove("active");
+          } else {
+            toast.className = "premium-toast error active glass-card";
+            toastMsg.textContent = data.message || "Failed to checkout cart.";
+          }
+          checkoutBtn.removeAttribute("disabled");
+          checkoutBtn.textContent = "PROCEED TO CHECKOUT";
+          setTimeout(() => toast.classList.remove("active"), 4500);
+        })
+        .catch(err => {
+          console.error("Cart Checkout Error:", err);
+          toast.className = "premium-toast error active glass-card";
+          toastMsg.textContent = "Network error. Make sure your server is running.";
+          checkoutBtn.removeAttribute("disabled");
+          checkoutBtn.textContent = "PROCEED TO CHECKOUT";
+          setTimeout(() => toast.classList.remove("active"), 3500);
+        });
+      });
+
+      // Initial Render
+      renderGlobalCart();
+    });
   </script>
 </body>
 </html>
