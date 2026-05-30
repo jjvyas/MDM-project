@@ -582,11 +582,7 @@ body::after {
   color: #00c6ff;
 }
 
-.seat.available:hover {
-  background: rgba(0, 198, 255, 0.2);
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 5px 15px rgba(0, 198, 255, 0.4);
-}
+
 
 /* Seat Selected Status */
 .seat.selected {
@@ -1270,8 +1266,7 @@ h3[style*="font-family"] {
 
 /* Card hover scaling and gold glow transition */
 .card:hover, 
-.game-card:hover, 
-.cafe-box:hover {
+.game-card:hover {
   transform: translateY(-8px) scale(1.02) !important;
   box-shadow: 0 20px 40px rgba(143, 0, 255, 0.5) !important;
   border-color: rgba(143, 0, 255, 0.75) !important;
@@ -1366,10 +1361,7 @@ h3[style*="font-family"] {
   color: #8f00ff !important;
 }
 
-.seat.available:hover {
-  background: rgba(143, 0, 255, 0.25) !important;
-  box-shadow: 0 5px 15px rgba(143, 0, 255, 0.5) !important;
-}
+
 
 .legend-color.available {
   border: 2px solid #8f00ff !important;

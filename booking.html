@@ -145,12 +145,12 @@
         <div class="seats-grid" data-cafe="cafe1">
           <div class="seat available" data-seat="1">S1<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="2">S2<span class="seat-label">PS5</span></div>
-          <div class="seat occupied" data-seat="3">S3<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="3">S3<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="4">S4<span class="seat-label">PS5</span></div>
-          <div class="seat occupied" data-seat="5">S5<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="5">S5<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="6">S6<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="7">S7<span class="seat-label">PS5</span></div>
-          <div class="seat occupied" data-seat="8">S8<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="8">S8<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="9">S9<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="10">S10<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="11">S11<span class="seat-label">PS5</span></div>
@@ -179,15 +179,15 @@
 
         <!-- 11 Seats Grid -->
         <div class="seats-grid" data-cafe="cafe2">
-          <div class="seat occupied" data-seat="1">S1<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="1">S1<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="2">S2<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="3">S3<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="4">S4<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="5">S5<span class="seat-label">PS5</span></div>
-          <div class="seat occupied" data-seat="6">S6<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="6">S6<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="7">S7<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="8">S8<span class="seat-label">PS5</span></div>
-          <div class="seat occupied" data-seat="9">S9<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="9">S9<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="10">S10<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="11">S11<span class="seat-label">PS5</span></div>
         </div>
@@ -216,16 +216,16 @@
         <!-- 11 Seats Grid -->
         <div class="seats-grid" data-cafe="cafe3">
           <div class="seat available" data-seat="1">S1<span class="seat-label">PS5</span></div>
-          <div class="seat occupied" data-seat="2">S2<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="2">S2<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="3">S3<span class="seat-label">PS5</span></div>
-          <div class="seat occupied" data-seat="4">S4<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="4">S4<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="5">S5<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="6">S6<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="7">S7<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="8">S8<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="9">S9<span class="seat-label">PS5</span></div>
           <div class="seat available" data-seat="10">S10<span class="seat-label">PS5</span></div>
-          <div class="seat occupied" data-seat="11">S11<span class="seat-label">PS5</span></div>
+          <div class="seat available" data-seat="11">S11<span class="seat-label">PS5</span></div>
         </div>
       </section>
 
@@ -308,6 +308,30 @@
 
     document.addEventListener("DOMContentLoaded", function () {
       generateSlotAvailabilities();
+
+      // Fetch active bookings from the database to dynamically reserve them
+      const cafeGridMap = {
+        1: 'cafe1',
+        2: 'cafe2',
+        3: 'cafe3'
+      };
+
+      fetch("http://localhost:5000/api/bookings/active")
+        .then(res => res.json())
+        .then(data => {
+          if (data.success && data.bookings) {
+            data.bookings.forEach(booking => {
+              const gridCafeId = cafeGridMap[booking.cafe_id];
+              const seatNumStr = booking.seat_number.replace('S', '');
+              const seatElement = document.querySelector(`.seats-grid[data-cafe="${gridCafeId}"] .seat[data-seat="${seatNumStr}"]`);
+              if (seatElement) {
+                seatElement.classList.remove("available");
+                seatElement.classList.add("occupied");
+              }
+            });
+          }
+        })
+        .catch(err => console.error("Error loading active bookings:", err));
 
       // Dynamic Navbar Authentication state toggler
       const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";

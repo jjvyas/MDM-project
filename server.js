@@ -224,6 +224,20 @@ app.post("/api/booking", (req, res) => {
     );
 });
 
+// Get active seat bookings (where booking date >= current date)
+app.get("/api/bookings/active", (req, res) => {
+    db.query(
+        "SELECT cafe_id, seat_number, booking_date FROM bookings WHERE booking_date >= CURDATE()",
+        (err, results) => {
+            if (err) {
+                console.error("Fetch Active Bookings Error:", err);
+                return res.status(500).json({ success: false, message: "Database error" });
+            }
+            res.json({ success: true, bookings: results });
+        }
+    );
+});
+
 // Get User Profile & History
 app.get("/api/profile/:userId", (req, res) => {
     const userId = req.params.userId;
